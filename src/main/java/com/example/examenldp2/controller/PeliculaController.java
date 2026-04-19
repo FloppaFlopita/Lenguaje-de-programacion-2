@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -60,8 +62,7 @@ public class PeliculaController {
         g.setNombre("Accion");
         g = generoRepository.save(g);
 
-        String json = "Pega esto en Postman (Body -> raw -> JSON):\n\n" +
-                "{\n" +
+        String json = "{\n" +
                 "  \"titulo\": \"Batman\",\n" +
                 "  \"anyoEstreno\": 2008,\n" +
                 "  \"duracionMinutos\": 152,\n" +
@@ -71,5 +72,9 @@ public class PeliculaController {
                 "  ]\n" +
                 "}";
         return ResponseEntity.ok(json);
+    }
+    @GetMapping
+    public ResponseEntity<List<Pelicula>> listarTodas() {
+        return ResponseEntity.ok(peliculaRepository.findAll());
     }
 }
